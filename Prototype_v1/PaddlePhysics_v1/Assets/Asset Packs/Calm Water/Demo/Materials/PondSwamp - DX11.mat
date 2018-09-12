@@ -1,0 +1,266 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: PondSwamp - DX11
+  m_Shader: {fileID: 4800000, guid: c960b2fa5c6943a47bf5f9dbab77ea35, type: 3}
+  m_ShaderKeywords: _DEPTHFOG_ON _DISPLACEMENTMODE_GERSTNER _DISPLACEMENT_ON _DISTORTIONQUALITY_HIGH
+    _FOAM_ON _REFLECTIONTYPE_CUBEMAP
+  m_LightmapFlags: 5
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+    - first:
+        name: _BumpMap
+      second:
+        m_Texture: {fileID: 2800000, guid: 26409920616e41e44bcf1e1d60dcbfb2, type: 3}
+        m_Scale: {x: 3, y: 3}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _Cube
+      second:
+        m_Texture: {fileID: 8900000, guid: 367ce3cf5eb9948419c7cfe09556c3c8, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _DetailAlbedoMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _DetailMask
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _DetailNormalMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _DispNormal
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _DispTex
+      second:
+        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _EmissionMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _FoamTex
+      second:
+        m_Texture: {fileID: 2800000, guid: f3ed797cad96fec41b94d8626de3f1ab, type: 3}
+        m_Scale: {x: 20, y: 20}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _MainTex
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _MetallicGlossMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _OcclusionMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _ParallaxMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _ReflectionTex
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - first:
+        name: _Amplitude
+      second: 1.63
+    - first:
+        name: _BumpScale
+      second: 1
+    - first:
+        name: _BumpStrength
+      second: 0.619
+    - first:
+        name: _Cutoff
+      second: 0.5
+    - first:
+        name: _DISPLACEMENT
+      second: 1
+    - first:
+        name: _Depth
+      second: 0.8
+    - first:
+        name: _DepthFog
+      second: 0
+    - first:
+        name: _DetailNormalMapScale
+      second: 1
+    - first:
+        name: _Displacement
+      second: 0.06
+    - first:
+        name: _DisplacementMode
+      second: 2
+    - first:
+        name: _Distortion
+      second: 43.5
+    - first:
+        name: _DistortionQuality
+      second: 0
+    - first:
+        name: _DstBlend
+      second: 0
+    - first:
+        name: _EdgeFade
+      second: 3
+    - first:
+        name: _EnableFog
+      second: 1
+    - first:
+        name: _FOAM
+      second: 1
+    - first:
+        name: _FoamSize
+      second: 1.97
+    - first:
+        name: _Frequency
+      second: 3.72
+    - first:
+        name: _GSteepness
+      second: 2
+    - first:
+        name: _Glossiness
+      second: 0.5
+    - first:
+        name: _Metallic
+      second: 0
+    - first:
+        name: _Mode
+      second: 0
+    - first:
+        name: _NoiseFrequency
+      second: 4.6
+    - first:
+        name: _NoisePower
+      second: 0.049
+    - first:
+        name: _NoiseSpeed
+      second: 1
+    - first:
+        name: _OcclusionStrength
+      second: 1
+    - first:
+        name: _Parallax
+      second: 0.02
+    - first:
+        name: _Reflection
+      second: 0.439
+    - first:
+        name: _ReflectionType
+      second: 2
+    - first:
+        name: _RimPower
+      second: 6.2
+    - first:
+        name: _Smoothing
+      second: 1
+    - first:
+        name: _Smoothness
+      second: 1.18
+    - first:
+        name: _Speed
+      second: 1
+    - first:
+        name: _SpeedX
+      second: 0.5
+    - first:
+        name: _SpeedY
+      second: 0.5
+    - first:
+        name: _SrcBlend
+      second: 1
+    - first:
+        name: _Steepness
+      second: 5.66
+    - first:
+        name: _Tess
+      second: 15.6
+    - first:
+        name: _UVSec
+      second: 0
+    - first:
+        name: _ZWrite
+      second: 1
+    m_Colors:
+    - first:
+        name: _Color
+      second: {r: 0.72794116, g: 0.69693387, b: 0.5673659, a: 1}
+    - first:
+        name: _CubeColor
+      second: {r: 0.8235294, g: 0.80515456, b: 0.70242214, a: 1}
+    - first:
+        name: _DepthColor
+      second: {r: 0.25, g: 0.2022072, b: 0.13051471, a: 1}
+    - first:
+        name: _EmissionColor
+      second: {r: 0, g: 0, b: 0, a: 1}
+    - first:
+        name: _FoamColor
+      second: {r: 0.8308824, g: 0.8308824, b: 0.8308824, a: 1}
+    - first:
+        name: _GDirectionAB
+      second: {r: -0.45, g: 0.87, b: 0.85, a: 0.25}
+    - first:
+        name: _GDirectionCD
+      second: {r: -0.5, g: 0.64, b: 0.5, a: 0.5}
+    - first:
+        name: _GFrequency
+      second: {r: 1.3, g: 1.35, b: 1.25, a: 1.25}
+    - first:
+        name: _GSpeed
+      second: {r: 3, g: 2, b: 3, a: 2}
+    - first:
+        name: _GSteepness
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _SpecColor
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _WDirectionAB
+      second: {r: 0.3, g: 0.73, b: 0.85, a: 0.25}
+    - first:
+        name: _WDirectionCD
+      second: {r: -0.25, g: 1.11, b: 0.5, a: 0.5}
+    - first:
+        name: _WSpeed
+      second: {r: 1.22, g: 0.71, b: 1.1, a: 0.73}

@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Simulation
+  m_Shader: {fileID: 4800000, guid: bd885023dfa39964c855d3dd5c0b7ca9, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+    - first:
+        name: _HeightCurrTex
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _HeightCurrentTex
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _HeightPrevTex
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _MainTex
+      second:
+        m_Texture: {fileID: 2800000, guid: 5c7a40a6f19ed494eb63932df624ad69, type: 3}
+        m_Scale: {x: 20, y: 20}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - first:
+        name: _Damping
+      second: 0.99
+    m_Colors:
+    - first:
+        name: _Color
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _K
+      second: {r: 0.6713853, g: -0.9955101, b: 0.3310312, a: 0}
+    - first:
+        name: _Parameters
+      second: {r: 0.6713853, g: -0.9955101, b: 0.3310312, a: 0}
+    - first:
+        name: _TextureSize
+      second: {r: 0.0078125, g: 0.0078125, b: 0, a: 0}

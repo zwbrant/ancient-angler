@@ -1,0 +1,202 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: WaterProDaytime
+  m_Shader: {fileID: 4800000, guid: 2e5d60e33aa6da447bb69ec37053c5ba, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+    - first:
+        name: _BumpMap
+      second:
+        m_Texture: {fileID: 2800000, guid: 2dd3788f8589b40bf82a92d76ffc5091, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _Cube
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _FoamTex
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _Fresnel
+      second:
+        m_Texture: {fileID: 2800000, guid: 5b5c5575fd4c74abd9f7b30862fb76a3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _MainTex
+      second:
+        m_Texture: {fileID: 2800000, guid: e6f8288974c664a309d6c66de636978c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _ReflectionTex
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _ReflectiveColor
+      second:
+        m_Texture: {fileID: 2800000, guid: ab97f9ab7c2ce724ebc9446060a819a4, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _ReflectiveColorCube
+      second:
+        m_Texture: {fileID: 8900000, guid: 9cda328e4b6954d70841a8a66f42ec08, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _RefractionTex
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - first:
+        name: _Amplitude
+      second: 0.05
+    - first:
+        name: _BumpStrength
+      second: 1
+    - first:
+        name: _Depth
+      second: 0.5
+    - first:
+        name: _DisplacementMode
+      second: 0
+    - first:
+        name: _Distortion
+      second: 50
+    - first:
+        name: _DistortionQuality
+      second: 0
+    - first:
+        name: _EdgeFade
+      second: 1
+    - first:
+        name: _EnableFog
+      second: 0
+    - first:
+        name: _FOAM
+      second: 0
+    - first:
+        name: _FoamSize
+      second: 0.5
+    - first:
+        name: _Frequency
+      second: 1
+    - first:
+        name: _ReflDistort
+      second: 1.181
+    - first:
+        name: _Reflection
+      second: 1
+    - first:
+        name: _ReflectionType
+      second: 0
+    - first:
+        name: _RefrDistort
+      second: 0.164
+    - first:
+        name: _RimPower
+      second: 5
+    - first:
+        name: _Smoothing
+      second: 0
+    - first:
+        name: _Smoothness
+      second: 0.5
+    - first:
+        name: _Speed
+      second: 1
+    - first:
+        name: _SpeedX
+      second: 0.5
+    - first:
+        name: _SpeedY
+      second: 0.5
+    - first:
+        name: _Steepness
+      second: 1
+    - first:
+        name: _Tess
+      second: 4
+    - first:
+        name: _WaveScale
+      second: 0.1103
+    m_Colors:
+    - first:
+        name: WaveSpeed
+      second: {r: 8.81, g: 0.4, b: -1.4, a: -0.87}
+    - first:
+        name: _BumpMap_ST
+      second: {r: 1, g: 1, b: 0, a: 0}
+    - first:
+        name: _Color
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _CubeColor
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _DepthColor
+      second: {r: 0, g: 0, b: 0, a: 0}
+    - first:
+        name: _FoamColor
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _Fresnel_ST
+      second: {r: 1, g: 1, b: 0, a: 0}
+    - first:
+        name: _HorizonColor
+      second: {r: 1, g: 1, b: 1, a: 0}
+    - first:
+        name: _MainTex_ST
+      second: {r: 1, g: 1, b: 0, a: 0}
+    - first:
+        name: _ReflectionTex_ST
+      second: {r: 1, g: 1, b: 0, a: 0}
+    - first:
+        name: _ReflectiveColorCube_ST
+      second: {r: 1, g: 1, b: 0, a: 0}
+    - first:
+        name: _ReflectiveColor_ST
+      second: {r: 1, g: 1, b: 0, a: 0}
+    - first:
+        name: _RefrColor
+      second: {r: 1, g: 1, b: 1, a: 0}
+    - first:
+        name: _RefractionTex_ST
+      second: {r: 1, g: 1, b: 0, a: 0}
+    - first:
+        name: _SpecColor
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _WDirectionAB
+      second: {r: 0.3, g: 0.85, b: 0.85, a: 0.25}
+    - first:
+        name: _WDirectionCD
+      second: {r: 0.1, g: 0.9, b: 0.5, a: 0.5}
+    - first:
+        name: _WSpeed
+      second: {r: 1.2, g: 1.375, b: 1.1, a: 1.5}
+--- !u!1002 &2100001
+EditorExtensionImpl:
+  serializedVersion: 6

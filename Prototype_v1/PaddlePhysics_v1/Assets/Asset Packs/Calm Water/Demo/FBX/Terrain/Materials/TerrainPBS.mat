@@ -1,0 +1,184 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: TerrainPBS
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: _DETAIL_MULX2 _NORMALMAP
+  m_LightmapFlags: 5
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+    - first:
+        name: _Bump1
+      second:
+        m_Texture: {fileID: 2800000, guid: 4e271ac1089842443ad9710501154f7a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _Bump1D
+      second:
+        m_Texture: {fileID: 2800000, guid: a3be536d130a17540b0f06e1c2cf3d6a, type: 3}
+        m_Scale: {x: 100, y: 100}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _Bump2
+      second:
+        m_Texture: {fileID: 2800000, guid: 1b632ccdf5d40064c91d899c82c172d9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _Bump3
+      second:
+        m_Texture: {fileID: 2800000, guid: e1b977a48e76df44bbefe3d13a6b8c24, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _Bump4
+      second:
+        m_Texture: {fileID: 2800000, guid: 9cabdd145bb5a5b428f39907857f7ee3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _BumpMap
+      second:
+        m_Texture: {fileID: 2800000, guid: 49317f05957216943a1c4ed9540dafc9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _DetailAlbedoMap
+      second:
+        m_Texture: {fileID: 2800000, guid: beac9d0517cbc1841927782e4c0d7a37, type: 3}
+        m_Scale: {x: 30, y: 30}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _DetailMask
+      second:
+        m_Texture: {fileID: 2800000, guid: 1e9876f3c472636418c254af8e8b2b17, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _DetailNormalMap
+      second:
+        m_Texture: {fileID: 2800000, guid: 1e0829b7e972c504caf08fdc015d3945, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _EmissionMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _MainTex
+      second:
+        m_Texture: {fileID: 2800000, guid: a427fd0178bd4894c8875695096a3769, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _Mask
+      second:
+        m_Texture: {fileID: 2800000, guid: f77e54caa70a24341be1a82c710add21, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _MetallicGlossMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _OcclusionMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _ParallaxMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _TexB
+      second:
+        m_Texture: {fileID: 2800000, guid: 8e218c3f7324a224abc66d3b9b7378e3, type: 3}
+        m_Scale: {x: 25, y: 25}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _TexG
+      second:
+        m_Texture: {fileID: 2800000, guid: 49ef8b74380c39744845bf624c256b3c, type: 3}
+        m_Scale: {x: 50, y: 50}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _TexR
+      second:
+        m_Texture: {fileID: 2800000, guid: 29f0ad366357ccf49b391b9dad1623dc, type: 3}
+        m_Scale: {x: 50, y: 50}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - first:
+        name: _BumpScale
+      second: 1
+    - first:
+        name: _Cutoff
+      second: 0.5
+    - first:
+        name: _DetailNormalMapScale
+      second: 1
+    - first:
+        name: _DstBlend
+      second: 0
+    - first:
+        name: _EmissionScaleUI
+      second: 0
+    - first:
+        name: _Glossiness
+      second: 0.019
+    - first:
+        name: _Metallic
+      second: 0
+    - first:
+        name: _Mode
+      second: 0
+    - first:
+        name: _OcclusionStrength
+      second: 1
+    - first:
+        name: _Parallax
+      second: 0.02
+    - first:
+        name: _Shininess
+      second: 0.13
+    - first:
+        name: _SrcBlend
+      second: 1
+    - first:
+        name: _UVSec
+      second: 0
+    - first:
+        name: _ZWrite
+      second: 1
+    m_Colors:
+    - first:
+        name: _Color
+      second: {r: 0.7794118, g: 0.7794118, b: 0.7794118, a: 1}
+    - first:
+        name: _EmissionColor
+      second: {r: 0, g: 0, b: 0, a: 0}
+    - first:
+        name: _EmissionColorUI
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _ShadowColor
+      second: {r: 1, g: 1, b: 1, a: 0}
+    - first:
+        name: _SpecColor
+      second: {r: 1, g: 1, b: 1, a: 0.5019608}

@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: RockSimpleDetailed
+  m_Shader: {fileID: 10701, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+    - first:
+        name: _BumpMap
+      second:
+        m_Texture: {fileID: 2800000, guid: 0f3e661b90274c34580c86e7b68f0308, type: 3}
+        m_Scale: {x: 30, y: 30}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _MainTex
+      second:
+        m_Texture: {fileID: 2800000, guid: 5c748fa6396758c4a8c9f4ace6a8b249, type: 3}
+        m_Scale: {x: 30, y: 30}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _ParallaxMap
+      second:
+        m_Texture: {fileID: 2800000, guid: a4603a7f0a419c046ad86502be2091fe, type: 3}
+        m_Scale: {x: 30, y: 30}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - first:
+        name: _Parallax
+      second: 0.064776115
+    - first:
+        name: _Shininess
+      second: 0.23488255
+    m_Colors:
+    - first:
+        name: _Color
+      second: {r: 0.75373137, g: 0.75373137, b: 0.75373137, a: 1}
+    - first:
+        name: _SpecColor
+      second: {r: 0.14179105, g: 0.14179105, b: 0.14179105, a: 1}
