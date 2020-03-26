@@ -6,7 +6,7 @@ public class ZB_IndirectBoatCollider : MonoBehaviour {
 
     internal Rigidbody rBody;
     internal static float impactForceMulti = 120f;
-    internal static float continuousForceMulti = 80f;
+    internal static float continuousForceMulti = 170f;
     internal Transform forcePoint;
 
 	// Use this for initialization

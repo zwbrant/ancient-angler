@@ -7,7 +7,7 @@ public class ZB_FollowSomething : MonoBehaviour {
     public bool followRotation;
     public bool followX, followY, followZ = true;
 
-
+    public bool Enabled = true;
 
 
     Vector3 offsetOfObjs;
@@ -43,7 +43,8 @@ public class ZB_FollowSomething : MonoBehaviour {
 
     void FixedUpdate()
     {
-
+        if (!Enabled)
+            return;
   
         transform.position = Vector3.MoveTowards(transform.position, objToFollow.transform.position + new Vector3(xOffset, yOffset, zOffset), 2f);
         transform.rotation = objToFollow.transform.rotation;

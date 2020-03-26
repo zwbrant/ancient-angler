@@ -15,8 +15,9 @@ public class ZB_SwimToTarget_v1 : MonoBehaviour {
     public float SwimSpeed = 1f;
     public float MaxChaseDist = 3f;
     public Transform[] Waypoints;
-    public float LinePullStrength; 
-    public ZB_CollisionEvent MouthCollisions;
+    public float LinePullStrength;
+    public ZB_CollisionEvent ChaseTrigger;
+    public ZB_CollisionEvent MouthTrigger;
     public GameObject HookPoint;
     internal Rigidbody hookPointRBody;
     internal Rigidbody rBody;
@@ -44,7 +45,6 @@ public class ZB_SwimToTarget_v1 : MonoBehaviour {
     [Tooltip("Only needs to be set if you want the fish to chase a line on start")]
     public ZB_VerletLine TargetLine;
     NavMeshAgent navAgent;
-    LineRenderer leaderLineRend;
 
     float initSpeed;
 
@@ -54,25 +54,21 @@ public class ZB_SwimToTarget_v1 : MonoBehaviour {
         hookPointRBody = HookPoint.GetComponent<Rigidbody>();
         navAgent = GetComponent<NavMeshAgent>();
         initSpeed = navAgent.speed;
-        leaderLineRend = GetComponent<LineRenderer>();
-        MouthCollisions.onTrigger += MouthTriggerEnter;
+        MouthTrigger.onTriggerEnter += OnMouthTriggerEnter;
+        ChaseTrigger.onTriggerEnter += OnChaseTriggerEnter;
+        ChaseTrigger.onTriggerExit += OnChaseTriggerExit;
 
         CurrState = StartState;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        timer += Time.deltaTime;
+        //if (currState == FishState.Hooked)
+        //{
 
-        if (currState == FishState.Hooked)
-        {
-            if (!leaderLineRend.enabled)
-                leaderLineRend.enabled = true;
-
-            if (TargetLine != null)
-                SetLeaderLinePositions();
-
-            ApplyVerticalResistance();
-        }
+        //    ApplyVerticalResistance();
+        //}
         //else if ((targetLine == null || !targetLine.hooked) && leaderLineRend.enabled)
         //{
         //    CurrState = FishState.NavAgent;
@@ -91,64 +87,54 @@ public class ZB_SwimToTarget_v1 : MonoBehaviour {
         }
         else if (CurrState == FishState.NavAgent)
         {
-            if (navAgent.remainingDistance < 0.5f)
+            if (navAgent.remainingDistance < 0.5f && timer > .2f)
                 GotoNextPoint();
         }
 	}
+
+    float timer = 0f; 
 
     private void SetState(FishState state)
     {
         switch (state)
         {
             case FishState.NavAgent:
-                ZB_SceneSingletons.debugText2.text = "Switching to NavAgent state";
+                //ZB_SceneSingletons.debugText2.text = "Switching to NavAgent state";
                 navAgent.enabled = true;
-                leaderLineRend.enabled = false;
                 rBody.isKinematic = true;
-                hookPointRBody.isKinematic = true;
                 TargetLine = null;
                 break;
             case FishState.Chasing:
-                ZB_SceneSingletons.debugText2.text = "Switching to Chasing state";
+                //ZB_SceneSingletons.debugText2.text = "Switching to Chasing state";
                 navAgent.enabled = false;
-                leaderLineRend.enabled = false;
                 rBody.isKinematic = true;
-                hookPointRBody.isKinematic = true;
                 break;
             case FishState.Hooked:
-                ZB_SceneSingletons.debugText2.text = "Switching to Hooked state";
+               // ZB_SceneSingletons.debugText2.text = "Switching to Hooked state";
                 navAgent.enabled = false;
-                leaderLineRend.enabled = true;
                 rBody.isKinematic = false;
-                hookPointRBody.isKinematic = false;
                 break;
         }
     }
 
-    void ApplyVerticalResistance()
-    {
-        float yPosition = transform.position.y;
+    //void ApplyVerticalResistance()
+    //{
+    //    float yPosition = transform.position.y;
 
-        if (yPosition < ZB_SceneSingletons.WaterLevel)
-        {
-            if (yPosition > TargetDepth)
-            {
-                hookPointRBody.AddForce(-Vector3.up * VerticalResistance * Time.deltaTime * 100f, ForceMode.Force);
-                //print(-Vector3.up * VerticalResistance * Time.deltaTime);
-            }
-            else if (yPosition < TargetDepth)
-            {
-                hookPointRBody.AddForce(Vector3.up * VerticalResistance * Time.deltaTime * 100f, ForceMode.Force);
-                //print(Vector3.up * VerticalResistance * Time.deltaTime);
-            }
-        }
-    }
-
-    void SetLeaderLinePositions()
-    {
-        leaderLineRend.SetPosition(0, HookPoint.transform.position);
-        leaderLineRend.SetPosition(1, TargetLine.lineStart.transform.position);
-    }
+    //    if (yPosition < ZB_SceneSingletons.WaterLevel)
+    //    {
+    //        if (yPosition > TargetDepth)
+    //        {
+    //            hookPointRBody.AddForce(-Vector3.up * VerticalResistance * Time.deltaTime * 100f, ForceMode.Force);
+    //            //print(-Vector3.up * VerticalResistance * Time.deltaTime);
+    //        }
+    //        else if (yPosition < TargetDepth)
+    //        {
+    //            hookPointRBody.AddForce(Vector3.up * VerticalResistance * Time.deltaTime * 100f, ForceMode.Force);
+    //            //print(Vector3.up * VerticalResistance * Time.deltaTime);
+    //        }
+    //    }
+    //}
 
     void ChaseTarget()
     {
@@ -168,15 +154,18 @@ public class ZB_SwimToTarget_v1 : MonoBehaviour {
 
     void GotoNextPoint()
     {
+
         if (Waypoints.Length == 0)
             return;
+        timer = 0f;
 
         navAgent.destination = Waypoints[targetWaypoint].position;
 
         targetWaypoint = (targetWaypoint + 1) % Waypoints.Length;
+
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnChaseTriggerEnter(Collider other)
     {
         if (other.tag == "Hook")
         {
@@ -185,29 +174,36 @@ public class ZB_SwimToTarget_v1 : MonoBehaviour {
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    void OnChaseTriggerExit(Collider other)
     {
         CurrState = FishState.NavAgent;
         TargetLine = null;
     }
 
-    void MouthTriggerEnter(Collider other)
+    void OnMouthTriggerEnter(Collider other)
     {
+        print(other.name);
         if (TargetLine == null || !TargetLine.hooked)
         {
+            CurrState = FishState.Hooked;
             SetHook();
-            CurrState = FishState.Hooked;                     
         }
     }
 
     void SetHook()
     {
-        print("Hook attached");
-        ZB_SceneSingletons.debugText1.text = "Hook attached";
+        //ZB_SceneSingletons.debugText1.text = "Hook attached";
 
-        TargetLine.hooked = true;
-        TargetLine.Attachment = hookPointRBody;
-        TargetLine.LineBreak += OnLineBreak;
+        //TargetLine.hooked = true;
+        //TargetLine.Attachment = hookPointRBody;
+        //TargetLine.LineBreak += OnLineBreak;
+
+        rBody.useGravity = true;
+        var joint = gameObject.AddComponent<FixedJoint>();
+        joint.connectedBody = TargetLine.lineStartRBody;
+        ChaseTrigger.gameObject.SetActive(false);
+
+        this.enabled = false;
     }
 
     private void OnLineBreak(object sender, EventArgs e)

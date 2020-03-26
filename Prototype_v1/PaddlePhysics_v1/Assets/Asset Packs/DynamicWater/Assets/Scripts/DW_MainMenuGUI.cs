@@ -22,9 +22,9 @@ public class DW_MainMenuGUI : MonoBehaviour {
         const float buttonHeight = 35f;
 
         float height = 370f + buttonHeight * 3f;
-        if (Application.isWebPlayer) {
-            height -= 20f + buttonHeight;
-        }
+#if UNITY_WEBGL
+        height -= 20f + buttonHeight;
+#endif
         if (DW_GUILayout.IsRuntimePlatformMobile()) {
             height -= buttonHeight;
         }
@@ -84,13 +84,13 @@ public class DW_MainMenuGUI : MonoBehaviour {
             DW_CameraFade.StartAlphaFade(Color.black, false, 0.5f, 0f, () => Application.LoadLevel("DW_BoatMobile"));
         }
 
-        if (!Application.isWebPlayer) {
-            GUILayout.Space(20);
+#if UNITY_WEBGL
+        GUILayout.Space(20);
             GUI.color = new Color(1f, 0.6f, 0.6f, 1f);
             if (GUILayout.Button("Quit", GUILayout.Height(buttonHeight))) {
                 DW_CameraFade.StartAlphaFade(Color.black, false, 0.5f, 0f, Application.Quit);
             }
-        }
+#endif
 
         GUILayout.EndVertical();
         GUILayout.EndArea();

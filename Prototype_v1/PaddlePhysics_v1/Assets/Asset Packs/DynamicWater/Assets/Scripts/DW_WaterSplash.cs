@@ -16,10 +16,13 @@ public class DW_WaterSplash : MonoBehaviour {
     /// </summary>
     public float SplashThreshold = 3.1f;
 
+    [Range(0.0f, 1.0f)]
+    public float Volume = 1f;
     /// <summary>
     /// The <c>AudioClip[]</c> array, from which one random sound will be played upon impact.
     /// </summary>
     public AudioClip[] SplashSounds;
+
 
     private IDynamicWaterSettings _water;
     private Rigidbody _rigidbody;
@@ -77,7 +80,7 @@ public class DW_WaterSplash : MonoBehaviour {
 
         // Playing the splash sound
         if (SplashSounds.Length > 0) {
-            AudioSource.PlayClipAtPoint(SplashSounds[Random.Range(0, SplashSounds.Length)], position);
+            AudioSource.PlayClipAtPoint(SplashSounds[Random.Range(0, SplashSounds.Length)], position, Volume);
         }
     }
 

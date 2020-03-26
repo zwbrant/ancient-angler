@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ZB_CollisionEvent : MonoBehaviour {
     public delegate void TriggerDelegate(Collider other);
-    public event TriggerDelegate onTrigger;
+    public event TriggerDelegate onTriggerEnter;
+    public event TriggerDelegate onTriggerExit;
 
     public delegate void CollisionDelegate(Collision collision);
     public event CollisionDelegate onCollision;
@@ -21,11 +22,19 @@ public class ZB_CollisionEvent : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        onTrigger(other);
+        if (onTriggerEnter != null)
+            onTriggerEnter(other);
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (onTriggerExit != null)
+            onTriggerExit(other);
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        onCollision(collision);
+        if (onCollision != null)
+            onCollision(collision);
     }
 }

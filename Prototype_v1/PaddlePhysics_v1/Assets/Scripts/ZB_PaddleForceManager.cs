@@ -31,6 +31,12 @@ public class ZB_PaddleForceManager : MonoBehaviour {
 
     void FixedUpdate()
     {
+        var rotation =  forceTarget.transform.rotation.eulerAngles;
+        rotation.x = 0;
+        rotation.z = 0;
+
+        forceTarget.transform.eulerAngles = rotation;
+
         ApplyPaddleForces();
     }
 

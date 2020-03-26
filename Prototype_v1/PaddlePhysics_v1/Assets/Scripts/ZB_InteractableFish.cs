@@ -19,7 +19,15 @@ public class ZB_InteractableFish : VRTK_InteractableObject {
     {
         base.Grabbed(grabbingObject);
 
-        Destroy(hookAttach.currJoint);
-        hookAttach.currJoint = null;
+        if (hookAttach != null)
+        {
+            Destroy(hookAttach.currJoint);
+            hookAttach.currJoint = null;
+        } else
+        {
+            Destroy(GetComponent<FixedJoint>());
+        }
+
+
     }
 }
