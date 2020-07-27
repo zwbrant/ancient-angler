@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class ZB_PaddleForceManager : MonoBehaviour {
     public Rigidbody forceTarget;
     public List<ZB_PaddleBlade> paddleBlades = new List<ZB_PaddleBlade>();
-    [Range(0, 500000)]
+    [Range(0, 1000)]
     public float paddleThrustMultiplier = 5000f;
     [Range(0, 3000)]
     public float hapticIntensity = 0.4f;
@@ -53,8 +53,8 @@ public class ZB_PaddleForceManager : MonoBehaviour {
                     //print(paddleForce.magnitude);
                     totalPaddleForce += paddleForce.magnitude;
 
-                    if (paddleBlade.forcePoint != null)
-                        forceTarget.AddForceAtPosition(paddleForce * paddleThrustMultiplier, paddleBlade.forcePoint.transform.position);
+                    if (paddleBlade.ForcePoint != null)
+                        forceTarget.AddForceAtPosition(paddleForce * paddleThrustMultiplier, paddleBlade.ForcePoint.transform.position);
                     else
                         forceTarget.AddForceAtPosition(paddleForce * paddleThrustMultiplier, paddleBlade.transform.position);
 

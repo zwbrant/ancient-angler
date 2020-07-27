@@ -1,0 +1,142 @@
+fileFormatVersion: 2
+guid: a84324b8570bd1e4cb39a89278ed883c
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: bottom cover
+    100004: cover seat
+    100006: elements
+    100008: lock front
+    100010: paddle
+    100012: rope
+    100014: seat part
+    100016: strap
+    100018: top cover
+    400000: //RootNode
+    400002: bottom cover
+    400004: cover seat
+    400006: elements
+    400008: lock front
+    400010: paddle
+    400012: rope
+    400014: seat part
+    400016: strap
+    400018: top cover
+    2100000: steel
+    2100002: Black plastic
+    2100004: aruba logo
+    2100006: orange plastic
+    2100008: Metal _Gray
+    2100010: rope
+    2100012: foam
+    2100014: strap
+    2300000: bottom cover
+    2300002: cover seat
+    2300004: elements
+    2300006: lock front
+    2300008: paddle
+    2300010: rope
+    2300012: seat part
+    2300014: strap
+    2300016: top cover
+    3300000: bottom cover
+    3300002: cover seat
+    3300004: elements
+    3300006: lock front
+    3300008: paddle
+    3300010: rope
+    3300012: seat part
+    3300014: strap
+    3300016: top cover
+    4300000: paddle
+    4300002: top cover
+    4300004: bottom cover
+    4300006: cover seat
+    4300008: lock front
+    4300010: rope
+    4300012: elements
+    4300014: seat part
+    4300016: strap
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

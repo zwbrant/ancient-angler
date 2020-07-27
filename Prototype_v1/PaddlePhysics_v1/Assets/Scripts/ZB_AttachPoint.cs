@@ -52,7 +52,7 @@ public class ZB_AttachPoint : VRTK_InteractableObject {
                 else
                 {
                     paddle.secondaryControlActions = null;
-                    paddle.forcePoint = null;
+                    paddle.ForcePoint = null;
                 }
             }
             spawningObj.staticAttachPtCount--;

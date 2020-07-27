@@ -8,6 +8,7 @@ ModelImporter:
     400000: //RootNode
     400002: generic_hmd_generic_hmd_mesh
     2100000: generic_hmd_generic_hmd_meshMat
+    2100002: generic_hmd_lambert2SG
     2300000: generic_hmd_generic_hmd_mesh
     3300000: generic_hmd_generic_hmd_mesh
     4300000: generic_hmd_generic_hmd_mesh
@@ -83,7 +84,6 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1

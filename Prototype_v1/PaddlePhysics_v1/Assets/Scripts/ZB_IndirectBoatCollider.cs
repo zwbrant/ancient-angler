@@ -12,8 +12,8 @@ public class ZB_IndirectBoatCollider : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         rBody = GetComponent<Rigidbody>();
-        if (paddle.forcePoint != null)
-            forcePoint = paddle.forcePoint.transform;
+        if (paddle.ForcePoint != null)
+            forcePoint = paddle.ForcePoint.transform;
         else
             print(string.Format("Warning paddle {0} has no forcePoint", paddle.name));
 	}

@@ -58,7 +58,7 @@ public class ZB_AkimboInteractableObject : VRTK_InteractableObject
 
         if (!alwaysUseSlider && (alwaysUseStatic || attachPtCount >= staticAttachPtCount))
         {
-            print("making static joint");
+            //print("making static joint");
             staticAttachPtCount++;
 
 
@@ -74,7 +74,7 @@ public class ZB_AkimboInteractableObject : VRTK_InteractableObject
                 else
                 {
                     paddle.secondaryControlActions = controllerActions;
-                    paddle.forcePoint = attachPoint.gameObject;
+                    paddle.ForcePoint = attachPoint.gameObject;
                 }
             }
 
@@ -131,7 +131,7 @@ public class ZB_AkimboInteractableObject : VRTK_InteractableObject
 
         }
         else {
-            print("making slider joint");
+            //print("making slider joint");
             attachPtCount++;
 
             foreach (ZB_PaddleBlade paddleBlade in paddleBlades)
@@ -178,7 +178,10 @@ public class ZB_AkimboInteractableObject : VRTK_InteractableObject
             {
                 rightControlLocalY = attachPtLocalY;
                 currRightControl = grabbingObject;
+
                 rightRotateTrack.follow = true;
+
+
                 attachPointScript.isRightController = true;
                 currRightAttachPt = attachPointScript.gameObject;
             }
@@ -186,7 +189,8 @@ public class ZB_AkimboInteractableObject : VRTK_InteractableObject
             {
                 leftControlLocalY = attachPtLocalY;
                 currLeftControl = grabbingObject;
-                leftRotateTrack.follow = true;
+                leftRotateTrack.follow = false;
+
                 attachPointScript.isRightController = false;
                 currLeftAttachPt = attachPointScript.gameObject;
             }
@@ -199,7 +203,7 @@ public class ZB_AkimboInteractableObject : VRTK_InteractableObject
     IEnumerator DelayedJointConnect(ConfigurableJoint attachPtJoint, Rigidbody rBody)
     {
         yield return new WaitForSeconds(.2f);
-        print("joint connected");
+        //print("joint connected");
 
         attachPtJoint.connectedBody = rBody;
         attachPtJoint.breakForce = breakForce;
@@ -207,6 +211,11 @@ public class ZB_AkimboInteractableObject : VRTK_InteractableObject
 
     public override void Ungrabbed(GameObject previousGrabbingObject)
     {
+        currRightControl = null;
+        currLeftControl = null;
+        currLeftAttachPt = null;
+        currRightAttachPt = null;
+
         base.Ungrabbed(previousGrabbingObject);
     }
 
