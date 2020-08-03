@@ -61,7 +61,7 @@ public class ResetSeatedPosition : MonoBehaviour
             // Get current head heading in scene (y-only, to avoid tilting the floor)
             float offsetAngle = steamCamera.rotation.eulerAngles.y;
             // Now rotate CameraRig in opposite direction to compensate
-            cameraRig.Rotate(0f, -offsetAngle, 0f);
+            //cameraRig.Rotate(0f, -offsetAngle, 0f);
 
             //POSITION
             // Calculate postional offset between CameraRig and Camera

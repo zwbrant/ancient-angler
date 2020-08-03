@@ -6,6 +6,7 @@ using VRTK;
 using Vec3 = UnityEngine.Vector3;
 using System.Collections.Generic;
 using UnityStandardAssets.ImageEffects;
+using UnityEngine.UI;
 
 
 /* Author: Zane Brant
@@ -18,19 +19,24 @@ using UnityStandardAssets.ImageEffects;
 public class ZB_PaddleBlade : MonoBehaviour
 {
     const float WaterHeight = 0f;
-    // how many frames of data should be averaged for the velocity vector (if any)?
-    const int VelocityFrameBuffer = 4;
+    // how many frames of data should be averaged for the velocity vector?
+    public int VelocityFrameBuffer = 4;
 
     public GameObject[] CornerGOs = new GameObject[4];
     public GameObject ForcePoint;
+    public Rigidbody BladeRbody;
 
     public bool ShowSubmersionLines = false;
+    public bool DrawMesh = false;
     public Color SubmergLineColor = Color.red;
+    public TextMesh DebugText;
 
     [HideInInspector]
     public List<Vec3> SubmergedPoints = new List<Vec3>();
     private Vec3[] cornerVectors = new Vec3[4];
     private Vec3 velocityVector = new Vec3(0, 0, 0);
+
+    private Material _meshMaterial;
 
     internal VRTK_ControllerActions mainControlActions = null;
     internal VRTK_ControllerActions secondaryControlActions = null;
@@ -39,7 +45,7 @@ public class ZB_PaddleBlade : MonoBehaviour
 
 
     #region Properties
-    static Material LineMaterial
+    public static Material LineMaterial
     {
         get
         {
@@ -63,7 +69,7 @@ public class ZB_PaddleBlade : MonoBehaviour
     }
     private static Material _lineMaterial;
     public Vec3 Direction { get { return velocityVector.normalized; } }
-    public float Velocity { get { return velocityVector.magnitude; } }
+    public float Speed { get { return velocityVector.magnitude; } }
     public float SubmergedArea
     {
         get
@@ -73,11 +79,8 @@ public class ZB_PaddleBlade : MonoBehaviour
             switch (cornersSubmerged)
             {
                 case 1:
-                    //print(SubmergedAreaTest());
-                    //return GetAreaOneSubmergCorner_fast();
                     return GetAreaOneSubmergCorner();
                 case 2:
-                    //return GetAreaTwoSubmergCorner_fast();
                     return GetAreaTwoSubmergCorner();
                 case 3:
                     return GetAreaThreeSubmergCorner();
@@ -85,6 +88,12 @@ public class ZB_PaddleBlade : MonoBehaviour
                     return GetAreaFourSubmergCorner();
                 default:
                     SubmergedPoints.Clear();
+                    if (DrawMesh)
+                    {
+                        BladeMesh.triangles = null;
+                        BladeMesh.vertices = null;
+
+                    }
                     return 0f;
             }
 
@@ -95,13 +104,12 @@ public class ZB_PaddleBlade : MonoBehaviour
     {
         get
         {
-            cornerVectors[0] = CornerGOs[0].transform.position;
-            cornerVectors[1] = CornerGOs[1].transform.position;
-            cornerVectors[2] = CornerGOs[2].transform.position;
-            cornerVectors[3] = CornerGOs[3].transform.position;
+            for (int i = 0; i < CornerGOs.Length; i++)
+                cornerVectors[i] = CornerGOs[i].transform.position; 
             return cornerVectors;
         }
     }
+
 
     public Vec3[] CornersByDepth
     {
@@ -115,26 +123,29 @@ public class ZB_PaddleBlade : MonoBehaviour
     {
         get
         {
-            float thrust = Velocity * SubmergedArea;
+            float thrust = Speed * SubmergedArea;
             float angleOfImpact = Vec3.Angle(transform.up, Direction);
 
 
-            float dot = Vec3.Dot(transform.InverseTransformVector( Direction),BladeNormal);
+            float dot = Vec3.Dot(transform.InverseTransformVector(velocityVector).normalized,BladeNormal);
             float obliqueness = Mathf.Abs(dot);
             //print(obliqueness);
 
-            // normalize between the sides of the paddle
-            if (angleOfImpact > 90)
-            {
-                angleOfImpact = 180 - angleOfImpact;
-            }
-            // normalize the angle. the greater the angle of impact (obliqueness), the less the intensity 
-            float intensityOfImpact = 1f - (angleOfImpact * 0.0111111111111111f);
             thrust *= obliqueness;
 
-            Vec3 globalVector = transform.TransformDirection(BladeNormal);
+            Vec3 globalVector = transform.TransformVector(BladeNormal).normalized;
 
             //return -Direction * thrust;
+
+
+            if (DrawMesh)
+            {
+                var speedFactor = Mathf.Clamp(Speed / 4f, 0f, 1f);
+                _meshMaterial.SetColor("_Color", Color.Lerp(Color.green, Color.red, Mathf.Abs(obliqueness) * speedFactor));
+
+                if (DebugText)
+                    DebugText.text = Math.Round(speedFactor, 2, MidpointRounding.AwayFromZero).ToString() + " * " + Math.Round(obliqueness, 2, MidpointRounding.AwayFromZero).ToString();
+            }
 
             if (dot > 0f)
                 return -globalVector * thrust;
@@ -142,7 +153,6 @@ public class ZB_PaddleBlade : MonoBehaviour
                 return globalVector * thrust;
         }
     }
-
 
 
     public float Height
@@ -182,23 +192,51 @@ public class ZB_PaddleBlade : MonoBehaviour
     {
         get
         {
-            return Vec3.Normalize(
-                Vec3.Cross(CornerGOs[0].transform.localPosition, CornerGOs[1].transform.localPosition));
+            //return Vec3.Normalize(
+            //    Vec3.Cross(CornerGOs[0].transform.localPosition, CornerGOs[1].transform.localPosition));
+            return Vec3.right;
         }
     }
+
+    public Mesh BladeMesh
+    {
+        get
+        {
+            if (_bladeMesh == null)
+            {
+                GetComponent<MeshFilter>().mesh = _bladeMesh = new Mesh();
+                _bladeMesh.name = "BladeMesh";
+                _meshMaterial = GetComponent<MeshRenderer>().material;
+
+            }
+            return _bladeMesh;
+        }
+
+    }
+    private Mesh _bladeMesh;
 
     #endregion
 
     void Start()
     {
         previousPos = transform.position;
+        //print(name + " surf area: " + SurfaceArea);
+        _meshMaterial = GetComponent<MeshRenderer>().material;
+        //_meshMaterial.SetColor("_Color", Color.blue);
+
     }
 
     Vec3 previousPos;
-    void Update()
+
+    void FixedUpdate()
     {
         SetVelocityVector();
-        previousPos = transform.position;
+
+        if (ShowSubmersionLines || DrawMesh)
+        {
+            var cat = RawForce;
+
+        }
     }
 
     private void OnRenderObject()
@@ -212,21 +250,37 @@ public class ZB_PaddleBlade : MonoBehaviour
 
         GL.Color(SubmergLineColor);
 
-        if (SubmergedPoints.Count > 0)
-        {
-            for (int i = 0; i < SubmergedPoints.Count; i++)
-            {
-                if (i != 0)
-                    GL.Vertex(SubmergedPoints[i]);
+        //if (SubmergedPoints.Count > 0)
+        //{
+        //    for (int i = 0; i < SubmergedPoints.Count; i++)
+        //    {
+        //        if (i != 0)
+        //            GL.Vertex(SubmergedPoints[i]);
 
-                GL.Vertex(SubmergedPoints[i]);
-            }
-            GL.Vertex(SubmergedPoints[0]);
-        }
+        //        GL.Vertex(SubmergedPoints[i]);
+        //    }
+        //    GL.Vertex(SubmergedPoints[0]);
+        //}
         GL.Color(Color.green);
 
-        GL.Vertex(transform.position);
-        GL.Vertex(transform.position - RawForce);
+        GL.Vertex(CornerVectors[0]);
+        GL.Vertex(CornerVectors[1]);
+        GL.Vertex(CornerVectors[1]);
+        GL.Vertex(CornerVectors[2]);
+        GL.Vertex(CornerVectors[2]);
+        GL.Vertex(CornerVectors[3]);
+        GL.Vertex(CornerVectors[3]);
+        GL.Vertex(CornerVectors[0]);
+
+
+
+        //GL.Vertex(transform.position);
+        //GL.Vertex(transform.position - RawForce * .3f);
+
+        //GL.Color(Color.blue);
+
+        //GL.Vertex(transform.position);
+        //GL.Vertex(transform.TransformPoint(BladeNormal));
 
         GL.End();
         GL.PopMatrix();
@@ -236,17 +290,28 @@ public class ZB_PaddleBlade : MonoBehaviour
     Vec3 cumulativeVelocity = new Vec3();
     void SetVelocityVector()
     {
+
         if (frameCount < VelocityFrameBuffer)
         {
-            cumulativeVelocity += (transform.position - previousPos) / Time.deltaTime;
+            if (BladeRbody != null)
+            {
+                cumulativeVelocity += BladeRbody.velocity;
+
+            } else
+            {
+                cumulativeVelocity += (transform.position - previousPos) / Time.deltaTime;
+                previousPos = transform.position;
+            }
             frameCount++;
         }
         else
         {
             velocityVector = cumulativeVelocity / VelocityFrameBuffer;
+
             frameCount = 0;
-            cumulativeVelocity = new Vec3();
+            cumulativeVelocity = Vec3.zero;
         }
+        
     }
 
     public static Vec3 CrossProduct(Vec3 a, Vec3 b)
@@ -296,6 +361,9 @@ public class ZB_PaddleBlade : MonoBehaviour
             SubmergedPoints.Add(dHit);
             SubmergedPoints.Add(corners[0]);
             SubmergedPoints.Add(sHit);
+
+            RedrawMesh(1);
+
         }
 
         return submergArea;
@@ -323,6 +391,9 @@ public class ZB_PaddleBlade : MonoBehaviour
             SubmergedPoints.Add(corners[0]);
             SubmergedPoints.Add(corners[1]);
             SubmergedPoints.Add(sHit);
+
+            RedrawMesh(2);
+
         }
 
         return rightTriArea + obliqueArea;
@@ -354,6 +425,9 @@ public class ZB_PaddleBlade : MonoBehaviour
             SubmergedPoints.Add(corners[0]);
             SubmergedPoints.Add(corners[2]);
             SubmergedPoints.Add(sHit);
+
+            RedrawMesh(3);
+
         }
 
         return obliqueArea + dRightTriArea + sRightTriArea;
@@ -368,7 +442,75 @@ public class ZB_PaddleBlade : MonoBehaviour
             SubmergedPoints.Add(CornerVectors[1]);
             SubmergedPoints.Add(CornerVectors[2]);
             SubmergedPoints.Add(CornerVectors[3]);
+
+            RedrawMesh(4);
+
         }
         return SurfaceArea;
+    }
+
+    public void RedrawMesh(int submergedCorners)
+    {
+        BladeMesh.triangles = null;
+
+        if (submergedCorners < 1)
+        {
+            var verts = new Vec3[4];
+
+            for (int i = 0; i < CornerGOs.Length; i++)
+                verts[i] = CornerGOs[i].transform.localPosition;
+
+            BladeMesh.vertices = verts;
+
+            if (BladeMesh.triangles.Length != 6)
+                BladeMesh.triangles = new int[6] { 0, 1, 3, 1, 2, 3 };
+
+        }
+        else if (submergedCorners == 1)
+        {
+            var verts = new Vec3[SubmergedPoints.Count];
+
+            for (int i = 0; i < SubmergedPoints.Count; i++)
+                verts[i] = transform.InverseTransformPoint(SubmergedPoints[i]);
+
+            BladeMesh.vertices = verts;
+
+            BladeMesh.triangles = new int[3] { 0, 1, 2};
+        } 
+        else if (submergedCorners == 2)
+        {
+            var verts = new Vec3[SubmergedPoints.Count];
+
+            for (int i = 0; i < SubmergedPoints.Count; i++)
+                verts[i] = transform.InverseTransformPoint(SubmergedPoints[i]);
+
+            BladeMesh.vertices = verts;
+
+            BladeMesh.triangles = new int[6] { 0, 3, 1, 3, 2, 1 };
+        }
+        else if (submergedCorners == 3)
+        {
+            var verts = new Vec3[SubmergedPoints.Count];
+
+            for (int i = 0; i < SubmergedPoints.Count; i++)
+                verts[i] = transform.InverseTransformPoint(SubmergedPoints[i]);
+
+            BladeMesh.vertices = verts;
+
+            BladeMesh.triangles = new int[9] { 0, 2, 1, 0, 4, 2, 4, 3, 2 };
+        }
+
+        else if (submergedCorners == 4)
+        {
+            var verts = new Vec3[SubmergedPoints.Count];
+
+            for (int i = 0; i < SubmergedPoints.Count; i++)
+                verts[i] = transform.InverseTransformPoint(SubmergedPoints[i]);
+
+            BladeMesh.vertices = verts;
+
+            BladeMesh.triangles = new int[6] { 0, 1, 2, 0, 2, 3 };
+        }
+
     }
 }
