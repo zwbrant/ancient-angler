@@ -29,6 +29,8 @@ public class ZB_PaddleBlade : MonoBehaviour
     public bool ShowSubmersionLines = false;
     public bool DrawMesh = false;
     public Color SubmergLineColor = Color.red;
+    public Color OutlineColor = Color.cyan;
+
     public TextMesh DebugText;
 
     [HideInInspector]
@@ -140,8 +142,15 @@ public class ZB_PaddleBlade : MonoBehaviour
 
             if (DrawMesh)
             {
-                var speedFactor = Mathf.Clamp(Speed / 4f, 0f, 1f);
-                _meshMaterial.SetColor("_Color", Color.Lerp(Color.green, Color.red, Mathf.Abs(obliqueness) * speedFactor));
+                var speedFactor = Mathf.Clamp(Speed / 3f, 0f, 1f);
+                var newColor = Color.Lerp(Color.green, Color.red, Mathf.Abs(obliqueness) * speedFactor);
+                _currMeshColor = Color.Lerp(_currMeshColor, newColor, .2f);
+
+                _meshMaterial.SetColor("_Color", _currMeshColor);
+
+
+
+
 
                 if (DebugText)
                     DebugText.text = Math.Round(speedFactor, 2, MidpointRounding.AwayFromZero).ToString() + " * " + Math.Round(obliqueness, 2, MidpointRounding.AwayFromZero).ToString();
@@ -154,6 +163,7 @@ public class ZB_PaddleBlade : MonoBehaviour
         }
     }
 
+    private Color _currMeshColor = Color.green;
 
     public float Height
     {
@@ -248,8 +258,7 @@ public class ZB_PaddleBlade : MonoBehaviour
         GL.PushMatrix();
         GL.Begin(GL.LINES);
 
-        GL.Color(SubmergLineColor);
-
+        //GL.Color(SubmergLineColor);
         //if (SubmergedPoints.Count > 0)
         //{
         //    for (int i = 0; i < SubmergedPoints.Count; i++)
@@ -261,8 +270,8 @@ public class ZB_PaddleBlade : MonoBehaviour
         //    }
         //    GL.Vertex(SubmergedPoints[0]);
         //}
-        GL.Color(Color.green);
 
+        GL.Color(OutlineColor);
         GL.Vertex(CornerVectors[0]);
         GL.Vertex(CornerVectors[1]);
         GL.Vertex(CornerVectors[1]);
@@ -277,8 +286,14 @@ public class ZB_PaddleBlade : MonoBehaviour
         //GL.Vertex(transform.position);
         //GL.Vertex(transform.position - RawForce * .3f);
 
-        //GL.Color(Color.blue);
+        GL.Color(Color.blue);
 
+        GL.Vertex(transform.position);
+
+        var newLine = Vec3.Lerp(_prevVelLine, velocityVector, .1f);
+
+        GL.Vertex(transform.position - newLine * .3f);
+        _prevVelLine = velocityVector;
         //GL.Vertex(transform.position);
         //GL.Vertex(transform.TransformPoint(BladeNormal));
 
@@ -288,6 +303,7 @@ public class ZB_PaddleBlade : MonoBehaviour
 
     int frameCount = 0;
     Vec3 cumulativeVelocity = new Vec3();
+    private Vec3 _prevVelLine;
     void SetVelocityVector()
     {
 

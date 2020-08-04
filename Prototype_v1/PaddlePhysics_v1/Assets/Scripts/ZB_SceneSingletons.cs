@@ -26,7 +26,7 @@ public class ZB_SceneSingletons : MonoBehaviour {
     }
 
     void Start () {
-        QualitySettings.vSyncCount = 0;
+        //QualitySettings.vSyncCount = 0;
 
     }
 
