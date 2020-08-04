@@ -144,7 +144,7 @@ public class ZB_PaddleBlade : MonoBehaviour
             {
                 var speedFactor = Mathf.Clamp(Speed / 3f, 0f, 1f);
                 var newColor = Color.Lerp(Color.green, Color.red, Mathf.Abs(obliqueness) * speedFactor);
-                _currMeshColor = Color.Lerp(_currMeshColor, newColor, .2f);
+                _currMeshColor = Color.Lerp(_currMeshColor, newColor, .1f);
 
                 _meshMaterial.SetColor("_Color", _currMeshColor);
 

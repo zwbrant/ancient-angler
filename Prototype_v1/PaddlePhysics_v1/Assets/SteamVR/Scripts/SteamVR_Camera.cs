@@ -8,6 +8,7 @@ using UnityEngine;
 using System.Collections;
 using System.Reflection;
 using Valve.VR;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Camera))]
 public class SteamVR_Camera : MonoBehaviour
@@ -198,11 +199,11 @@ public class SteamVR_Camera : MonoBehaviour
 			while (transform.childCount > 0)
 				transform.GetChild(0).parent = head;
 
-			var guiLayer = GetComponent<GUILayer>();
-			if (guiLayer != null)
+			var Text = GetComponent<Text>();
+			if (Text != null)
 			{
-				DestroyImmediate(guiLayer);
-				head.gameObject.AddComponent<GUILayer>();
+				DestroyImmediate(Text);
+				head.gameObject.AddComponent<Text>();
 			}
 
 			var audioListener = GetComponent<AudioListener>();
@@ -229,11 +230,11 @@ public class SteamVR_Camera : MonoBehaviour
 		while (head.childCount > 0)
 			head.GetChild(0).parent = transform;
 
-		var guiLayer = head.GetComponent<GUILayer>();
-		if (guiLayer != null)
+		var Text = head.GetComponent<Text>();
+		if (Text != null)
 		{
-			DestroyImmediate(guiLayer);
-			gameObject.AddComponent<GUILayer>();
+			DestroyImmediate(Text);
+			gameObject.AddComponent<Text>();
 		}
 
 		if (ears != null)
