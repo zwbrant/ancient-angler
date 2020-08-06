@@ -235,7 +235,7 @@ namespace LostPolygon.DynamicWaterSystem {
             RecalculateCache();
         }
 
-        private void RecalculateCache() {
+        public void RecalculateCache() {
             if (_water == null || !_isReady) {
                 return;
             }

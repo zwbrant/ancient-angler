@@ -71,14 +71,15 @@ public class ZB_PaddleForceManager : MonoBehaviour {
                     totalPaddleForce += paddleForce.magnitude;
 
                     AddPaddleForce(paddleForce, blade);
+                    float hapticFeedback = (paddleForce.magnitude * hapticIntensity);
 
                     if (blade.mainControlActions != null)
                     {
-                        float hapticFeedback = (paddleForce.magnitude * hapticIntensity);
                         blade.mainControlActions.TriggerHapticPulse((ushort)hapticFeedback);
-                        if (blade.secondaryControlActions != null)
-                            blade.secondaryControlActions.TriggerHapticPulse((ushort)(hapticFeedback * .33f));
+
                     }
+                    if (blade.secondaryControlActions != null)
+                        blade.secondaryControlActions.TriggerHapticPulse((ushort)(hapticFeedback));
                 }
             }
 

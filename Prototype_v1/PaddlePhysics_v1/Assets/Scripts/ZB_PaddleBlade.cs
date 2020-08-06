@@ -7,6 +7,7 @@ using Vec3 = UnityEngine.Vector3;
 using System.Collections.Generic;
 using UnityStandardAssets.ImageEffects;
 using UnityEngine.UI;
+using LostPolygon.DynamicWaterSystem;
 
 
 /* Author: Zane Brant
@@ -25,12 +26,18 @@ public class ZB_PaddleBlade : MonoBehaviour
     public GameObject[] CornerGOs = new GameObject[4];
     public GameObject ForcePoint;
     public Rigidbody BladeRbody;
+    public BuoyancyForce BForce;
+    [Range(0f, 10f)]
+    public float MinBForce;
+    [Range(0f, 50f)]
+    public float MaxBForce;
 
-    public bool ShowSubmersionLines = false;
-    public bool DrawMesh = false;
+
+    [Header("Debugging")]
+    public bool DebugSubmersion = false;
     public Color SubmergLineColor = Color.red;
     public Color OutlineColor = Color.cyan;
-
+    public Color VelocityLineColor = Color.blue;
     public TextMesh DebugText;
 
     [HideInInspector]
@@ -90,7 +97,7 @@ public class ZB_PaddleBlade : MonoBehaviour
                     return GetAreaFourSubmergCorner();
                 default:
                     SubmergedPoints.Clear();
-                    if (DrawMesh)
+                    if (DebugSubmersion)
                     {
                         BladeMesh.triangles = null;
                         BladeMesh.vertices = null;
@@ -139,21 +146,19 @@ public class ZB_PaddleBlade : MonoBehaviour
 
             //return -Direction * thrust;
 
+            BForce.SplashForceFactor = Mathf.Lerp(MinBForce, MaxBForce, obliqueness);
+            BForce.RecalculateCache();
 
-            if (DrawMesh)
+            if (DebugSubmersion)
             {
                 var speedFactor = Mathf.Clamp(Speed / 3f, 0f, 1f);
-                var newColor = Color.Lerp(Color.green, Color.red, Mathf.Abs(obliqueness) * speedFactor);
+                var newColor = Color.Lerp(Color.green, Color.red, obliqueness * speedFactor);
                 _currMeshColor = Color.Lerp(_currMeshColor, newColor, .1f);
 
                 _meshMaterial.SetColor("_Color", _currMeshColor);
 
-
-
-
-
                 if (DebugText)
-                    DebugText.text = Math.Round(speedFactor, 2, MidpointRounding.AwayFromZero).ToString() + " * " + Math.Round(obliqueness, 2, MidpointRounding.AwayFromZero).ToString();
+                    DebugText.text = Math.Round(BForce.SplashForceFactor, 2, MidpointRounding.AwayFromZero).ToString();
             }
 
             if (dot > 0f)
@@ -227,13 +232,16 @@ public class ZB_PaddleBlade : MonoBehaviour
 
     #endregion
 
+    private float _initSplashForce;
+
     void Start()
     {
         previousPos = transform.position;
         //print(name + " surf area: " + SurfaceArea);
         _meshMaterial = GetComponent<MeshRenderer>().material;
         //_meshMaterial.SetColor("_Color", Color.blue);
-
+        if (BForce)
+            _initSplashForce = BForce.SplashForceFactor;
     }
 
     Vec3 previousPos;
@@ -242,7 +250,7 @@ public class ZB_PaddleBlade : MonoBehaviour
     {
         SetVelocityVector();
 
-        if (ShowSubmersionLines || DrawMesh)
+        if (DebugSubmersion)
         {
             var cat = RawForce;
 
@@ -251,7 +259,7 @@ public class ZB_PaddleBlade : MonoBehaviour
 
     private void OnRenderObject()
     {
-        if (!ShowSubmersionLines)
+        if (!DebugSubmersion)
             return;
 
         LineMaterial.SetPass(0);
@@ -286,7 +294,7 @@ public class ZB_PaddleBlade : MonoBehaviour
         //GL.Vertex(transform.position);
         //GL.Vertex(transform.position - RawForce * .3f);
 
-        GL.Color(Color.blue);
+        GL.Color(VelocityLineColor);
 
         GL.Vertex(transform.position);
 
@@ -371,7 +379,7 @@ public class ZB_PaddleBlade : MonoBehaviour
         float submergHeight = Math.Abs(Vec3.Distance(corners[0], sHit));
         float submergArea = (submergBase * submergHeight) / 2f;
 
-        if (ShowSubmersionLines)
+        if (DebugSubmersion)
         {
             SubmergedPoints.Clear();
             SubmergedPoints.Add(dHit);
@@ -400,7 +408,7 @@ public class ZB_PaddleBlade : MonoBehaviour
         float obliqueC = Vec3.Distance(sHit, dHit);
         float obliqueArea = ZB_Math.GetTriArea(obliqueA, obliqueB, obliqueC);
 
-        if (ShowSubmersionLines)
+        if (DebugSubmersion)
         {
             SubmergedPoints.Clear();
             SubmergedPoints.Add(dHit);
@@ -433,7 +441,7 @@ public class ZB_PaddleBlade : MonoBehaviour
         float obliqueC = Vec3.Distance(sHit, dHit);
         float obliqueArea = ZB_Math.GetTriArea(obliqueA, obliqueB, obliqueC);
 
-        if (ShowSubmersionLines)
+        if (DebugSubmersion)
         {
             SubmergedPoints.Clear();
             SubmergedPoints.Add(dHit);
@@ -451,7 +459,7 @@ public class ZB_PaddleBlade : MonoBehaviour
 
     public float GetAreaFourSubmergCorner()
     {
-        if (ShowSubmersionLines)
+        if (DebugSubmersion)
         {
             SubmergedPoints.Clear();
             SubmergedPoints.Add(CornerVectors[0]);
